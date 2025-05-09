@@ -32,31 +32,115 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(onPressed: _login, child: const Text('Login')),
-            TextButton(
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            'Login',
+            style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255), fontSize: 30),
+          ),
+        ),
+        backgroundColor:
+            const Color.fromARGB(255, 156, 162, 241), // تغيير لون الـ AppBar
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              // إضافة صورة أعلى الحقول
+              Image.asset(
+                'assets/images/login_image.png', // ضع هنا مسار الصورة
+                height: 220,
+                width: 300,
+              ),
+              const SizedBox(height: 20),
+
+              // حقل الإيميل
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: const Icon(
+                    Icons.email,
+                    color: Color.fromARGB(255, 156, 162, 241),
+                  ), // إضافة أيقونة
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 156, 162, 241),
+                    ),
+                  ),
+                ),
+                keyboardType: TextInputType.emailAddress,
+              ),
+              const SizedBox(height: 20),
+
+              // حقل كلمة المرور
+              TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: const Icon(
+                    Icons.lock,
+                    color: Color.fromARGB(255, 156, 162, 241),
+                  ), // إضافة أيقونة
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 156, 162, 241),
+                    ),
+                  ),
+                ),
+                obscureText: true,
+              ),
+              const SizedBox(height: 20),
+
+              // زر تسجيل الدخول
+              ElevatedButton(
+                onPressed: _login,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(
+                      255, 156, 162, 241), // تغيير لون الزر
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12), // جعل الزر مدور
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                ),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // رابط التسجيل في حال عدم وجود حساب
+              TextButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const SignupScreen()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const SignupScreen()),
+                  );
                 },
-                child: const Text('Don\'t have an account? Sign up')),
-            const SizedBox(height: 10),
-            Text(errorMessage, style: const TextStyle(color: Colors.red)),
-          ],
+                child: const Text(
+                  'Don\'t have an account? Sign up',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 78, 84, 170),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+
+              // رسالة الخطأ
+              Text(
+                errorMessage,
+                style: const TextStyle(color: Colors.red),
+              ),
+            ],
+          ),
         ),
       ),
     );

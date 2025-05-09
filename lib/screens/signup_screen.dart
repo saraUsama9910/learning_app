@@ -76,34 +76,113 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign Up')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _signup,
-              child: const Text('Sign Up'),
-            ),
-            if (errorMessage.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Text(
-                  errorMessage,
-                  style: const TextStyle(color: Colors.red),
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            'Sign Up',
+            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+          ),
+        ),
+        backgroundColor:
+            const Color.fromARGB(255, 248, 148, 169), // تعديل لون الـ AppBar
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              // إضافة صورة في أعلى الصفحة
+              Image.asset(
+                'assets/images/signup_image.png', // تأكد من المسار الصحيح للصورة
+                height: 220,
+                width: 300,
+              ),
+              const SizedBox(height: 20),
+
+              // حقل الإيميل مع تصميم جذاب
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: const Icon(
+                    Icons.email,
+                    color: Color.fromARGB(255, 248, 148, 169),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 248, 148, 169),
+                    ),
+                  ),
+                ),
+                keyboardType: TextInputType.emailAddress,
+              ),
+              const SizedBox(height: 20),
+
+              // حقل كلمة المرور مع تصميم جذاب
+              TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: const Icon(
+                    Icons.lock,
+                    color: Color.fromARGB(255, 248, 148, 169),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 248, 148, 169),
+                    ),
+                  ),
+                ),
+                obscureText: true,
+              ),
+              const SizedBox(height: 20),
+
+              // زر تسجيل الحساب بتصميم جميل
+              ElevatedButton(
+                onPressed: _signup,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(
+                      255, 248, 148, 169), // تغيير لون الزر
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                ),
+                child: const Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-          ],
+              const SizedBox(height: 20),
+
+              // رسالة الخطأ
+              if (errorMessage.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    errorMessage,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+
+              // رابط تسجيل الدخول في حال لم يكن لديك حساب
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context); // العودة إلى صفحة الدخول
+                },
+                child: const Text(
+                  'Already have an account? Log in',
+                  style: TextStyle(color: Color.fromARGB(255, 241, 113, 141)),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
