@@ -16,7 +16,7 @@ class WomenScreen extends StatelessWidget {
       },
       {
         'name': 'Women Jacket',
-        'image': 'assets/images/women_jacket.png',
+        'image': 'assets/images/women_jeans.png',
         'description': 'Stylish winter jacket.',
         'price': 89.99,
       },
