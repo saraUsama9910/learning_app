@@ -5,33 +5,34 @@ import 'product_detail_screen.dart';
 class MenScreen extends StatelessWidget {
   const MenScreen({super.key});
 
-  final List<Map<String, String>> products = const [
-    {
-      'name': 'Elegant Dress',
-      'image': 'assets/images/dress.png',
-      'description':
-          'A beautiful elegant dress made of silk, perfect for parties and formal events.',
-    },
-    {
-      'name': 'Summer T-Shirt',
-      'image': 'assets/images/women_dress.png',
-      'description':
-          'Light and comfortable t-shirt, ideal for the summer season.',
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
+    List<Map<String, String>> products = [
+      {
+        'name': 'Men Shirt',
+        'image': 'assets/images/men_shirt.jpg',
+        'description': 'Stylish shirt for men.'
+      },
+      {
+        'name': 'Men Jacket',
+        'image': 'assets/images/men_jacket.jpg',
+        'description': 'Warm winter jacket.'
+      },
+    ];
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Women\'s Clothes')),
-      body: ListView.builder(
+      appBar: AppBar(title: const Text('Men Clothes')),
+      body: GridView.builder(
+        padding: const EdgeInsets.all(16),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+        ),
         itemCount: products.length,
         itemBuilder: (context, index) {
-          final product = products[index];
-          return ListTile(
-            leading: Image.asset(product['image']!,
-                width: 60, height: 60, fit: BoxFit.cover),
-            title: Text(product['name']!),
+          var product = products[index];
+          return GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
@@ -44,6 +45,15 @@ class MenScreen extends StatelessWidget {
                 ),
               );
             },
+            child: Column(
+              children: [
+                Expanded(
+                  child: Image.asset(product['image']!, fit: BoxFit.cover),
+                ),
+                const SizedBox(height: 8),
+                Text(product['name']!),
+              ],
+            ),
           );
         },
       ),

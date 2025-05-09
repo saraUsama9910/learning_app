@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home_screen.dart';
 
 class VerificationScreen extends StatefulWidget {
-  final String generatedCode; // الكود اللي اتبعت للمستخدم
+  final String generatedCode;
+  final String userEmail;
 
-  const VerificationScreen({super.key, required this.generatedCode});
+  const VerificationScreen(
+      {super.key, required this.generatedCode, required this.userEmail});
 
   @override
   State<VerificationScreen> createState() => _VerificationScreenState();
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
-  final TextEditingController codeController = TextEditingController();
-  String? errorMessage;
+  final codeController = TextEditingController();
+  String errorMessage = '';
 
-  void verifyCode() {
+  void _verify() async {
     if (codeController.text.trim() == widget.generatedCode) {
-      // ✅ لو الكود صح → روح لل Home
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('loggedIn', true);
       Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
+          context, MaterialPageRoute(builder: (_) => const HomeScreen()));
     } else {
-      // ❌ لو غلط → Error message
       setState(() {
         errorMessage = 'Invalid code. Please try again.';
       });
@@ -32,32 +33,21 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Verify your Email')),
+      appBar: AppBar(title: const Text('Verify Email')),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Enter the verification code sent to your email:',
-              style: TextStyle(fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
+            Text('A verification code was sent to ${widget.userEmail}'),
             const SizedBox(height: 20),
             TextField(
               controller: codeController,
-              decoration: InputDecoration(
-                labelText: 'Verification Code',
-                border: OutlineInputBorder(),
-                errorText: errorMessage,
-              ),
-              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(labelText: 'Enter Code'),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: verifyCode,
-              child: const Text('Verify'),
-            ),
+            ElevatedButton(onPressed: _verify, child: const Text('Verify')),
+            const SizedBox(height: 10),
+            Text(errorMessage, style: const TextStyle(color: Colors.red)),
           ],
         ),
       ),

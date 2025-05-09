@@ -1,134 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'cart_screen.dart';
-import 'kids_screen.dart';
-import 'men_screen.dart';
-import 'women_screen.dart';
+import 'login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  void _logout(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('loggedIn');
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => const LoginScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.pink.shade100, Colors.blue.shade100],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          image: DecorationImage(
-            image: const AssetImage(
-                'assets/images/bg_pattern.png'), // صورة pattern خفيفة.
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              Colors.white.withOpacity(0.2),
-              BlendMode.dstATop,
-            ),
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              const Text(
-                'Welcome to Fashion Store!',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  padding: const EdgeInsets.all(16),
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  children: [
-                    _buildFeatureCard(
-                      context,
-                      title: 'Women',
-                      image: 'assets/images/women_icon.png',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const WomenScreen()),
-                        );
-                      },
-                    ),
-                    _buildFeatureCard(
-                      context,
-                      title: 'Men',
-                      image: 'assets/images/men_icon.png',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const MenScreen()),
-                        );
-                      },
-                    ),
-                    _buildFeatureCard(
-                      context,
-                      title: 'Kids',
-                      image: 'assets/images/kids_icon.png',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const KidsScreen()),
-                        );
-                      },
-                    ),
-                    _buildFeatureCard(
-                      context,
-                      title: 'Cart',
-                      image: 'assets/images/cart_icon.png',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const CartScreen()),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+      appBar: AppBar(
+        title: const Text('Home'),
+        actions: [
+          IconButton(
+              onPressed: () => _logout(context), icon: const Icon(Icons.logout))
+        ],
+      ),
+      body: GridView.count(
+        crossAxisCount: 2,
+        padding: const EdgeInsets.all(16),
+        children: [
+          _buildCategoryCard(context, 'Women', 'assets/images/women.jpg'),
+          _buildCategoryCard(context, 'Men', 'assets/images/men.jpg'),
+          _buildCategoryCard(context, 'Kids', 'assets/images/kids.jpg'),
+          _buildCategoryCard(context, 'Cart', 'assets/images/cart.jpg'),
+        ],
       ),
     );
   }
 
-  Widget _buildFeatureCard(BuildContext context,
-      {required String title,
-      required String image,
-      required VoidCallback onTap}) {
-    return InkWell(
-      onTap: onTap,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        elevation: 5,
+  Widget _buildCategoryCard(
+      BuildContext context, String title, String imagePath) {
+    return Card(
+      child: InkWell(
+        onTap: () {
+          // Navigate to detail screens (later)
+        },
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              image,
-              height: 80,
-              width: 80,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Expanded(
+                child: Image.asset(imagePath,
+                    fit: BoxFit.cover, width: double.infinity)),
+            const SizedBox(height: 8),
+            Text(title, style: const TextStyle(fontSize: 16)),
+            const SizedBox(height: 8),
           ],
         ),
       ),

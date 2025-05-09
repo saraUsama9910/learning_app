@@ -1,7 +1,36 @@
-import 'package:email_validator/email_validator.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'verification_screen.dart';
+
+Future<void> sendEmailVerification(String email, String code) async {
+  const serviceId = 'service_66ugjma';
+  const templateId = 'template_70i3298';
+  const userId = 'tPpJIEkeUTVcJd-9U';
+
+  final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+  final response = await http.post(url,
+      headers: {
+        'origin': 'http://localhost',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'service_id': serviceId,
+        'template_id': templateId,
+        'user_id': userId,
+        'template_params': {
+          'user_email': email,
+          'verification_code': code,
+        }
+      }));
+  if (response.statusCode == 200) {
+    print('Verification email sent');
+  } else {
+    print('Failed to send email: ${response.body}');
+  }
+}
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -11,87 +40,55 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  String errorMessage = '';
 
   void _signup() {
-    String email = _emailController.text.trim();
-    String password = _passwordController.text;
-
-    if (email.isEmpty || password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all fields')),
-      );
-      return;
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      String code = (1000 +
+              (9999 - 1000) *
+                  (DateTime.now().millisecondsSinceEpoch % 1000) /
+                  1000)
+          .toInt()
+          .toString();
+      print('Verification code: $code'); // مؤقت
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (_) => VerificationScreen(
+                    generatedCode: code,
+                    userEmail: emailController.text,
+                  )));
+    } else {
+      setState(() {
+        errorMessage = 'Please fill in all fields.';
+      });
     }
-
-    if (!EmailValidator.validate(email)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid email address')),
-      );
-      return;
-    }
-
-    // هنا هنركب كود إرسال الكود على الإيميل باستخدام EmailJS أو أي خدمة تانية.
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => VerificationScreen(email: email),
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(title: const Text('Sign Up')),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Text(
-                  'Create Account',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent,
-                  ),
-                ),
-                const SizedBox(height: 30),
-                TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: _signup,
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                  ),
-                  child: const Text('Sign Up'),
-                ),
-              ],
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(labelText: 'Email'),
             ),
-          ),
+            TextField(
+              controller: passwordController,
+              decoration: const InputDecoration(labelText: 'Password'),
+              obscureText: true,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(onPressed: _signup, child: const Text('Sign Up')),
+            const SizedBox(height: 10),
+            Text(errorMessage, style: const TextStyle(color: Colors.red)),
+          ],
         ),
       ),
     );
