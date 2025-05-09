@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:learning_app/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
