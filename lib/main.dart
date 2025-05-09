@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:learning_app/model/cart_provider.dart';
 import 'package:learning_app/splash_screen.dart';
+import 'package:provider/provider.dart'; // ✅ ضيفنا دي عشان ال Provider
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

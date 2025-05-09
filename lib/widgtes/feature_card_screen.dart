@@ -14,31 +14,29 @@ class FeatureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        elevation: 4,
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      elevation: 4,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(15),
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(16)),
-              child: Image.asset(
-                image,
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.cover,
+            Image.asset(
+              image,
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                title,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
+            const SizedBox(height: 10),
           ],
         ),
       ),

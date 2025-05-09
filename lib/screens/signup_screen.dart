@@ -17,7 +17,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final passwordController = TextEditingController();
   String errorMessage = '';
 
-  void _signup() {
+  void _signup() async {
     if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
       String code = (1000 +
               (9999 - 1000) *
@@ -25,7 +25,13 @@ class _SignupScreenState extends State<SignupScreen> {
                   1000)
           .toInt()
           .toString();
+
       print('Verification code: $code'); // مؤقت
+
+      // ✅ بعت الكود على الإيميل
+      await sendEmailVerification(emailController.text, code);
+
+      // ✅ روح على صفحة التحقق
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -85,9 +91,18 @@ class _SignupScreenState extends State<SignupScreen> {
               obscureText: true,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(onPressed: _signup, child: const Text('Sign Up')),
-            const SizedBox(height: 10),
-            Text(errorMessage, style: const TextStyle(color: Colors.red)),
+            ElevatedButton(
+              onPressed: _signup,
+              child: const Text('Sign Up'),
+            ),
+            if (errorMessage.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(
+                  errorMessage,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
           ],
         ),
       ),
