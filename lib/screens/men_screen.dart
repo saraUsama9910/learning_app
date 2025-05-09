@@ -10,12 +10,12 @@ class MenScreen extends StatelessWidget {
     List<Map<String, String>> products = [
       {
         'name': 'Men Shirt',
-        'image': 'assets/images/men_shirt.jpg',
+        'image': 'assets/images/men_shirt.png',
         'description': 'Stylish shirt for men.'
       },
       {
         'name': 'Men Jacket',
-        'image': 'assets/images/men_jacket.jpg',
+        'image': 'assets/images/men_jacket.png',
         'description': 'Warm winter jacket.'
       },
     ];

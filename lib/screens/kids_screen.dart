@@ -10,12 +10,12 @@ class KidsScreen extends StatelessWidget {
     List<Map<String, String>> products = [
       {
         'name': 'Kids Hoodie',
-        'image': 'assets/images/kids_hoodie.jpg',
+        'image': 'assets/images/kids_hoodie.png',
         'description': 'Warm hoodie for kids.'
       },
       {
         'name': 'Kids Pants',
-        'image': 'assets/images/kids_pants.jpg',
+        'image': 'assets/images/kids_shorts.png',
         'description': 'Comfortable pants for kids.'
       },
     ];

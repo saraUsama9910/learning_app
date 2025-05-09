@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:learning_app/screens/cart_screen.dart';
+import 'package:learning_app/screens/kids_screen.dart';
+import 'package:learning_app/screens/men_screen.dart';
+import 'package:learning_app/screens/women_screen.dart';
+import 'package:learning_app/widgtes/feature_card_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login_screen.dart';
@@ -20,18 +25,58 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Home'),
         actions: [
           IconButton(
-              onPressed: () => _logout(context), icon: const Icon(Icons.logout))
+              onPressed: () => _logout(context),
+              icon: const Icon(Icons.logout)),
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CartScreen()),
+              );
+            },
+          ),
         ],
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        padding: const EdgeInsets.all(16),
-        children: [
-          _buildCategoryCard(context, 'Women', 'assets/images/women.jpg'),
-          _buildCategoryCard(context, 'Men', 'assets/images/men.jpg'),
-          _buildCategoryCard(context, 'Kids', 'assets/images/kids.jpg'),
-          _buildCategoryCard(context, 'Cart', 'assets/images/cart.jpg'),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            FeatureCard(
+              title: 'Women',
+              image: 'assets/images/women1.jpg',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WomenScreen()),
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            FeatureCard(
+              title: 'Men',
+              image: 'assets/images/men1.jpg',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MenScreen()),
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            FeatureCard(
+              title: 'Kids',
+              image: 'assets/images/kids1.jpg',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const KidsScreen()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
