@@ -5,33 +5,6 @@ import 'package:http/http.dart' as http;
 
 import 'verification_screen.dart';
 
-Future<void> sendEmailVerification(String email, String code) async {
-  const serviceId = 'service_66ugjma';
-  const templateId = 'template_70i3298';
-  const userId = 'tPpJIEkeUTVcJd-9U';
-
-  final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
-  final response = await http.post(url,
-      headers: {
-        'origin': 'http://localhost',
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({
-        'service_id': serviceId,
-        'template_id': templateId,
-        'user_id': userId,
-        'template_params': {
-          'user_email': email,
-          'verification_code': code,
-        }
-      }));
-  if (response.statusCode == 200) {
-    print('Verification email sent');
-  } else {
-    print('Failed to send email: ${response.body}');
-  }
-}
-
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -64,6 +37,33 @@ class _SignupScreenState extends State<SignupScreen> {
       setState(() {
         errorMessage = 'Please fill in all fields.';
       });
+    }
+  }
+
+  Future<void> sendEmailVerification(String email, String code) async {
+    const serviceId = 'service_66ugjma';
+    const templateId = 'template_70i3298';
+    const userId = 'tPpJIEkeUTVcJd-9U';
+
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final response = await http.post(url,
+        headers: {
+          'origin': 'http://localhost',
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'service_id': serviceId,
+          'template_id': templateId,
+          'user_id': userId,
+          'template_params': {
+            'user_email': email,
+            'verification_code': code,
+          }
+        }));
+    if (response.statusCode == 200) {
+      print('Verification email sent');
+    } else {
+      print('Failed to send email: ${response.body}');
     }
   }
 
