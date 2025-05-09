@@ -1,42 +1,48 @@
 import 'package:flutter/material.dart';
-
 import 'product_detail_screen.dart';
 
 class WomenScreen extends StatelessWidget {
   const WomenScreen({super.key});
 
+  final List<Map<String, String>> products = const [
+    {
+      'name': 'Elegant Dress',
+      'image': 'assets/images/dress.png',
+      'description': 'A beautiful elegant dress made of silk, perfect for parties and formal events.',
+    },
+    {
+      'name': 'Summer T-Shirt',
+      'image': 'assets/images/women_dress.png',
+      'description': 'Light and comfortable t-shirt, ideal for the summer season.',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Women\'s Clothes')),
-      body: ListView(
-        children: [
-          _buildProductTile(context, 'Floral Dress', 'assets/women_dress.png',
-              'A beautiful floral dress.', 29.99),
-          _buildProductTile(context, 'Blue Jeans', 'assets/women_jeans.png',
-              'Comfortable blue jeans.', 19.99),
-          _buildProductTile(context, 'Black Top', 'assets/women_top.png',
-              'A stylish black top.', 14.99),
-        ],
+      body: ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          final product = products[index];
+          return ListTile(
+            leading: Image.asset(product['image']!, width: 60, height: 60, fit: BoxFit.cover),
+            title: Text(product['name']!),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ProductDetailScreen(
+                    name: product['name']!,
+                    image: product['image']!,
+                    description: product['description']!,
+                  ),
+                ),
+              );
+            },
+          );
+        },
       ),
-    );
-  }
-
-  Widget _buildProductTile(BuildContext context, String title, String image,
-      String description, double price) {
-    return ListTile(
-      leading: Image.asset(image, width: 50, height: 50),
-      title: Text(title),
-      subtitle: Text('\$$price'),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => ProductDetailScreen(
-                title: title, description: description, price: price),
-          ),
-        );
-      },
     );
   }
 }

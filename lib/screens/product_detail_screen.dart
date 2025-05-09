@@ -1,48 +1,54 @@
 import 'package:flutter/material.dart';
 
+import 'cart_screen.dart';
+
 class ProductDetailScreen extends StatelessWidget {
-  final String title;
+  final String name;
+  final String image;
   final String description;
-  final double price;
 
   const ProductDetailScreen({
     super.key,
-    required this.title,
+    required this.name,
+    required this.image,
     required this.description,
-    required this.price,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(title: Text(name)),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/product_placeholder.png', height: 250),
+            Center(
+              child: Image.asset(image, height: 250, fit: BoxFit.cover),
+            ),
             const SizedBox(height: 20),
             Text(
-              title,
+              name,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Text(
               description,
-              style: const TextStyle(fontSize: 18, color: Colors.grey),
+              style: const TextStyle(fontSize: 16),
             ),
-            const SizedBox(height: 20),
-            Text(
-              '\$$price',
-              style: const TextStyle(fontSize: 22, color: Colors.teal),
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () {
-                // Implement adding to cart or any other functionality
-              },
-              child: const Text('Add to Cart'),
+            const Spacer(),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  CartScreen.cartItems.add({'name': name, 'image': image});
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Added to cart')),
+                  );
+                },
+                icon: const Icon(Icons.add_shopping_cart),
+                label: const Text('Add to Cart'),
+              ),
             ),
           ],
         ),

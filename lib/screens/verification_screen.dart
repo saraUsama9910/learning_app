@@ -4,7 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'home_screen.dart';
 
 class VerificationScreen extends StatefulWidget {
-  const VerificationScreen({super.key});
+  final String email;
+  const VerificationScreen({super.key, required this.email});
 
   @override
   State<VerificationScreen> createState() => _VerificationScreenState();
@@ -12,10 +13,11 @@ class VerificationScreen extends StatefulWidget {
 
 class _VerificationScreenState extends State<VerificationScreen> {
   final _codeController = TextEditingController();
+  final String _sentCode = '123456'; // Mock code
 
-  void _verify() async {
-    if (_codeController.text == '1234') {
-      final prefs = await SharedPreferences.getInstance();
+  void _verifyCode() async {
+    if (_codeController.text.trim() == _sentCode) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
 
       Navigator.pushAndRemoveUntil(
@@ -25,7 +27,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Incorrect code')),
+        const SnackBar(content: Text('Invalid verification code')),
       );
     }
   }
@@ -33,26 +35,43 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Verification')),
+      backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-            const Text(
-              'Enter the code sent to your email',
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: _codeController,
-              decoration: const InputDecoration(labelText: 'Code'),
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: _verify,
-              child: const Text('Verify'),
-            ),
-          ],
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Enter Verification Code',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              const SizedBox(height: 30),
+              TextField(
+                controller: _codeController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Code',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: _verifyCode,
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+                child: const Text('Verify'),
+              ),
+            ],
+          ),
         ),
       ),
     );

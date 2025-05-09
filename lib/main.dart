@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:learning_app/screens/home_screen.dart';
+import 'package:learning_app/screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'screens/home_screen.dart';
-import 'screens/welcome_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
-  final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
   runApp(MyApp(isLoggedIn: isLoggedIn));
 }
@@ -20,11 +19,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Clothes Store',
+      title: 'Fashion App',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.blue,
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(fontSize: 16, fontFamily: 'Roboto'),
+        ),
       ),
-      home: isLoggedIn ? const HomeScreen() : const WelcomeScreen(),
+      home: isLoggedIn ? const HomeScreen() : const LoginScreen(),
     );
   }
 }
