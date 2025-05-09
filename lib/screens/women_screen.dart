@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learning_app/screens/cart_screen.dart';
 import 'package:learning_app/screens/product_detail_screen.dart'; // ✅ تأكدنا من المسار
+import 'package:learning_app/widgtes/cart_icon_with_badge.dart'; // ✅ ضفنا دي
 
 class WomenScreen extends StatelessWidget {
   const WomenScreen({super.key});
@@ -9,32 +9,24 @@ class WomenScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> products = [
       {
-        'name': 'Men Shirt',
-        'image': 'assets/images/men_shirt.png',
-        'description': 'Stylish shirt for men.',
-        'price': 29.99,
+        'name': 'Women Dress',
+        'image': 'assets/images/women_dress.png',
+        'description': 'Elegant dress for women.',
+        'price': 49.99,
       },
       {
-        'name': 'Men Jacket',
-        'image': 'assets/images/men_jacket.png',
-        'description': 'Warm winter jacket.',
-        'price': 59.99,
+        'name': 'Women Jacket',
+        'image': 'assets/images/women_jacket.png',
+        'description': 'Stylish winter jacket.',
+        'price': 89.99,
       },
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Men Clothes'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CartScreen()),
-              );
-            },
-          ),
+        title: const Text('Women Clothes'),
+        actions: const [
+          CartIconWithBadge(), // ✅ بدل IconButton العادي
         ],
       ),
       body: GridView.builder(

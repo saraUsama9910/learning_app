@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learning_app/screens/cart_screen.dart';
-import 'package:learning_app/screens/product_detail_screen.dart'; // ✅ تأكدنا من المسار
+import 'package:learning_app/screens/product_detail_screen.dart';
+import 'package:learning_app/widgtes/cart_icon_with_badge.dart'; // ✅ ضفنا دي
 
 class MenScreen extends StatelessWidget {
   const MenScreen({super.key});
@@ -25,16 +25,8 @@ class MenScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Men Clothes'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CartScreen()),
-              );
-            },
-          ),
+        actions: const [
+          CartIconWithBadge(), // ✅ بدل IconButton العادي
         ],
       ),
       body: GridView.builder(
