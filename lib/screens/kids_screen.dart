@@ -20,6 +20,54 @@ class KidsScreen extends StatelessWidget {
         'description': 'Warm and comfy jacket.',
         'price': 39.99,
       },
+      {
+        'name': 'Kids T-Shirt',
+        'image': 'assets/images/kids_tshirt1.png',
+        'description': 'Cute t-shirt for kids.',
+        'price': 22.99,
+      },
+      {
+        'name': 'Kids Jacket',
+        'image': 'assets/images/kids_jacket2.png',
+        'description': 'Warm and comfy jacket.',
+        'price': 29.99,
+      },
+      {
+        'name': 'Kids Hoodie',
+        'image': 'assets/images/kids_hoodie.png',
+        'description': 'Cute hoodie for kids.',
+        'price': 49.99,
+      },
+      {
+        'name': 'Kids Jacket',
+        'image': 'assets/images/kids_jacket4.png',
+        'description': 'Warm and comfy jacket.',
+        'price': 39.99,
+      },
+      {
+        'name': 'Kids Hoodie',
+        'image': 'assets/images/kids_hoodie3.png',
+        'description': 'Cute hoodie for kids.',
+        'price': 19.39,
+      },
+      {
+        'name': 'Kids short',
+        'image': 'assets/images/kids_shorts.png',
+        'description': 'Warm and comfy shorts.',
+        'price': 39.99,
+      },
+      {
+        'name': 'Kids shorts',
+        'image': 'assets/images/kids_shorts2.png',
+        'description': 'Cute shorts for kids.',
+        'price': 9.99,
+      },
+      {
+        'name': 'Kids Jacket',
+        'image': 'assets/images/kids_jacket3.png',
+        'description': 'Warm and comfy jacket.',
+        'price': 39.99,
+      },
     ];
 
     return Scaffold(

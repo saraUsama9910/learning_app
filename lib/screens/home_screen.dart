@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 800),
                   child: FeatureCard(
                     title: 'Women',
-                    image: 'assets/images/women_dress.png',
+                    image: 'assets/images/women.png',
                     onTap: () {
                       Navigator.push(
                         context,
@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 1000),
                   child: FeatureCard(
                     title: 'Men',
-                    image: 'assets/images/men_jacket.png',
+                    image: 'assets/images/men.png',
                     onTap: () {
                       Navigator.push(
                         context,
@@ -99,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 1200),
                   child: FeatureCard(
                     title: 'Kids',
-                    image: 'assets/images/kids_tshirt.png',
+                    image: 'assets/images/kids.png',
                     onTap: () {
                       Navigator.push(
                         context,

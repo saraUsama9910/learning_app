@@ -54,7 +54,7 @@ class FeatureCard extends StatelessWidget {
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   shadows: [
-                    Shadow(
+                    const Shadow(
                       blurRadius: 5,
                       color: Colors.black45,
                       offset: Offset(2, 2),

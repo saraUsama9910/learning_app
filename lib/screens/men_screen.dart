@@ -20,6 +20,78 @@ class MenScreen extends StatelessWidget {
         'description': 'Warm winter jacket.',
         'price': 59.99,
       },
+      {
+        'name': 'Men Shirt',
+        'image': 'assets/images/men_shirt1.png',
+        'description': 'Stylish shirt for men.',
+        'price': 29.99,
+      },
+      {
+        'name': 'Men Jacket',
+        'image': 'assets/images/men_jacket1.png',
+        'description': 'Warm winter jacket.',
+        'price': 59.99,
+      },
+      {
+        'name': 'Men Shirt',
+        'image': 'assets/images/men_shirt2.png',
+        'description': 'Stylish shirt for men.',
+        'price': 29.99,
+      },
+      {
+        'name': 'Men Jacket',
+        'image': 'assets/images/men_jacket2.png',
+        'description': 'Warm winter jacket.',
+        'price': 609.99,
+      },
+      {
+        'name': 'Men Shirt',
+        'image': 'assets/images/men_shirt3.png',
+        'description': 'Stylish shirt for men.',
+        'price': 299.99,
+      },
+      {
+        'name': 'Men Jacket',
+        'image': 'assets/images/men_jacket3.png',
+        'description': 'Warm winter jacket.',
+        'price': 529.99,
+      },
+      {
+        'name': 'Men Shirt',
+        'image': 'assets/images/men_shirt4.png',
+        'description': 'Stylish shirt for men.',
+        'price': 209.99,
+      },
+      {
+        'name': 'Men Jacket',
+        'image': 'assets/images/men_jacket4.png',
+        'description': 'Warm winter jacket.',
+        'price': 509.99,
+      },
+      {
+        'name': 'Men jeans',
+        'image': 'assets/images/jeans11.png',
+        'description': 'Stylish jeans for men.',
+        'price': 209.99,
+      },
+      {
+        'name': 'Men jeans',
+        'image': 'assets/images/jeans12.png',
+        'description': 'Stylish jeans for men.',
+        'price': 209.99,
+      },
+      {
+        'name': 'Men jeans',
+        'image': 'assets/images/jeans13.png',
+        'description': 'Stylish jeans for men.',
+        'price': 109.99,
+      },
+      {
+        'name': 'Men jeans',
+        'image': 'assets/images/jeans15.png',
+        'description': 'Stylish jeans for men.',
+        'price': 309.99,
+      },
     ];
 
     return Scaffold(

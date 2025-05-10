@@ -20,6 +20,66 @@ class WomenScreen extends StatelessWidget {
         'description': 'Stylish winter jacket.',
         'price': 89.99,
       },
+        {
+        'name': 'Women Dress',
+        'image': 'assets/images/dress2.png',
+        'description': 'Elegant dress for women.',
+        'price': 109.99,
+      },
+      {
+        'name': 'Women  Top',
+        'image': 'assets/images/top1.png',
+        'description': 'Stylish summer top.',
+        'price': 99.99,
+      },
+        {
+        'name': 'Women Dress',
+        'image': 'assets/images/dress3.png',
+        'description': 'Elegant dress for women.',
+        'price': 409.99,
+      },
+      {
+        'name': 'Women jeans',
+        'image': 'assets/images/women_jeans.png',
+        'description': 'Stylish  pants.',
+        'price': 89.99,
+      },
+        {
+        'name': 'Women Dress',
+        'image': 'assets/images/dress6.png',
+        'description': 'Elegant dress for women.',
+        'price': 89.99,
+      },
+      {
+        'name': 'Women top',
+        'image': 'assets/images/top2.png',
+        'description': 'Stylish summer top.',
+        'price': 49.99,
+      },
+        {
+        'name': 'Women Dress',
+        'image': 'assets/images/dress7_.png',
+        'description': 'Elegant dress for women.',
+        'price': 49.99,
+      },
+      {
+        'name': 'Women jeans',
+        'image': 'assets/images/jeans4.png',
+        'description': 'Stylish pants.',
+        'price': 89.99,
+      },
+      {
+        'name': 'Women jeans',
+        'image': 'assets/images/jeans6.png',
+        'description': 'Stylish pants.',
+        'price': 89.99,
+      },
+      {
+        'name': 'Women jeans',
+        'image': 'assets/images/jeans1.png',
+        'description': 'Stylish pants .',
+        'price': 89.99,
+      },
     ];
 
     return Scaffold(
